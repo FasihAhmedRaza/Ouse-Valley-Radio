@@ -1,8 +1,8 @@
 const Alexa = require('ask-sdk-core');
 const podcastUrl = 'https://listen.streamaudio.co/proxy/hcr/stream';
 const STATION_NAME = 'Ouse Valley';
-const LOGO_SMALL = 'https://streamaudio.co/alexa/ousevalleyradio_alexa600x600.jpg';
-const LOGO_LARGE = 'https://streamaudio.co/alexa/ousevalleyradio_alexa600x600.jpg';
+const LOGO_SMALL = "https://res.cloudinary.com/dje3rwthu/image/upload/v1767426225/small_csb13k.png";
+const LOGO_LARGE = "https://res.cloudinary.com/dje3rwthu/image/upload/v1767426228/large_tdi6ct.png";
 
 
 const LaunchRequestHandler = {
