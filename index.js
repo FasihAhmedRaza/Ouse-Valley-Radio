@@ -38,13 +38,27 @@ const PlayAudioIntentHandler = {
     }
 };
 
+const PlayAudioIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'PlayAudioIntent';
+    },
+    handle(handlerInput) {
+        const speakOutput = `Playing ${STATION_NAME} Radio.`;
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .addAudioPlayerPlayDirective('REPLACE_ALL', podcastUrl, 'radio_token', 0)
+            .getResponse();
+    }
+};
+
 const PauseIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.PauseIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Pausing ${STATION_NAME} Radio.';
+        const speakOutput = `Pausing ${STATION_NAME} Radio.`;
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addAudioPlayerStopDirective()
@@ -58,7 +72,7 @@ const ResumeIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.ResumeIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Resuming ${STATION_NAME} Radio.';
+        const speakOutput = `Resuming ${STATION_NAME} Radio.`;
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addAudioPlayerPlayDirective('REPLACE_ALL', podcastUrl, 'radio_token', 0)
@@ -73,7 +87,7 @@ const CancelAndStopIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
-        const speakOutput = 'Stopping ${STATION_NAME} Radio. Goodbye!';
+        const speakOutput = `Stopping ${STATION_NAME} Radio. Goodbye!`;
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addAudioPlayerStopDirective()
@@ -118,5 +132,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         CancelAndStopIntentHandler,
         HelpIntentHandler
     )
+    .addErrorHandlers(ErrorHandler)
+    .lambda();
     .addErrorHandlers(ErrorHandler)
     .lambda();
