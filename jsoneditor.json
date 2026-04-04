@@ -1,7 +1,7 @@
 {
     "interactionModel": {
         "languageModel": {
-            "invocationName": "ouse valley radio",
+            "invocationName": "back to house radio",
             "intents": [
                 {
                     "name": "AMAZON.CancelIntent",
